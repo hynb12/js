@@ -101,11 +101,13 @@
     <script>
       $(".form-select")
         .eq(0)
-        .on("click", function () {
-          if ($(".form-select").eq(0).val() == "모자") {
+        .on("click", function (e) {
+          // var value = this.value;
+          var value = e.currentTarget.value;
+          if (value == "모자") {
             $(".form-select").eq(2).addClass("form-hide");
             $(".form-select").eq(1).removeClass("form-hide");
-          } else if ($(".form-select").eq(0).val() == "셔츠") {
+          } else if (value == "셔츠") {
             $(".form-select").eq(1).addClass("form-hide");
             $(".form-select").eq(2).removeClass("form-hide");
           }
