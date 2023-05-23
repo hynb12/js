@@ -81,11 +81,55 @@
       }
     </style>
 
+    <form class="container my-5 form-group">
+      <p>상품선택</p>
+      <select class="form-select mt-2" id="choice">
+        <option>모자</option>
+        <option>셔츠</option>
+      </select>
+      <select class="form-select mt-2 form-hide">
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+      </select>
+      <select class="form-select mt-2 form-hide">
+        <option>95</option>
+        <option>100</option>
+        <option>105</option>
+      </select>
+    </form>
+    <script>
+      $(".form-select")
+        .eq(0)
+        .on("click", function () {
+          if ($(".form-select").eq(0).val() == "모자") {
+            $(".form-select").eq(2).addClass("form-hide");
+            $(".form-select").eq(1).removeClass("form-hide");
+          } else if ($(".form-select").eq(0).val() == "셔츠") {
+            $(".form-select").eq(1).addClass("form-hide");
+            $(".form-select").eq(2).removeClass("form-hide");
+          }
+        });
+    </script>
+
+    <div class="container mt-3">
+      <div class="card p-3">
+        <span class="car-title">상품명</span>
+        <span class="car-price">가격</span>
+      </div>
+    </div>
+
+    <script>
+      var car2 = { name: "소나타", price: [50000, 3000, 4000] };
+      document.querySelector(".car-title").innerHTML = car2["name"];
+      document.querySelector(".car-price").innerHTML = car2["price"][0];
+    </script>
+
     <div class="container mt-5">
       <ul class="list">
-        <li class="tab-button">Products</li>
-        <li class="tab-button orange">Information</li>
-        <li class="tab-button">Shipping</li>
+        <li class="tab-button" data-id="0">Products</li>
+        <li class="tab-button orange" data-id="1">Information</li>
+        <li class="tab-button" data-id="2">Shipping</li>
       </ul>
       <div class="tab-content">
         <p>상품설명입니다. Product</p>
@@ -97,17 +141,6 @@
         <p>배송정보입니다. Shipping</p>
       </div>
     </div>
-    <script>
-      for (let i = 0; i < $(".tab-button").length; i++) {
-        $(".tab-button")
-          .eq(i)
-          .on("click", function () {
-            $(".tab-button").removeClass("orange");
-            $(".tab-button").eq(i).addClass("orange");
-            $(".tab-content").removeClass("show");
-            $(".tab-content").eq(i).addClass("show");
-          });
-      }
-    </script>
+    <script src="tab.js"></script>
   </body>
 </html>

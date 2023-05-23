@@ -293,6 +293,23 @@
         $(".black-bg").removeClass("show-modal");
       });
 
+      // 이벤트 버블링과 이벤트관련 함수들
+      $(".black-bg").on("click", function (e) {
+        // e.target은 실제 클릭한 요소 알려줌 (이벤트 발생한 곳)
+        // e.currentTarget은 지금 이벤트리스너가 달린 곳 알려줌 (참고로 this라고 써도 똑같음)
+        // e.preventDefault() 실행하면 이벤트 기본 동작을 막아줌
+        // e.stopPropagation() 실행하면 내 상위요소로의 이벤트 버블링을 중단해줌
+        console.log(e.target); // 유저가 실제로 누른거
+        console.log(e.currentTarget); // 이벤트리스너 달린곳
+        console.log(e.preventDefault());
+        console.log(e.stopPropagation());
+        console.log($(".black-bg"));
+        // if (e.target == e.currentTarget) {
+        if (e.target == document.querySelector(".black-bg")) {
+          $(".black-bg").removeClass("show-modal");
+        }
+      });
+
       // querySelector(위에꺼한개만)
       document.querySelector(".hello").innerHTML = "바보";
 

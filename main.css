@@ -26,7 +26,7 @@
   /* display: none; */
 
   /* 맨앞에 잘보임 */
-  z-index: 5;
+  z-index: 6;
   position: fixed;
 
   /* One-way UI 애니메이션 만드는법 */
@@ -74,4 +74,8 @@
 .navbar-brand {
   font-size: 30px;
   transition: all 1s;
+}
+
+.form-hide {
+  display: none;
 }
