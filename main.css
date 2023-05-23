@@ -1,0 +1,77 @@
+.alert-box {
+  background-color: skyblue;
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+  display: none;
+}
+
+.list-group {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+.main-bg {
+  padding: 100px 20px;
+  background: lightgray;
+}
+
+.black-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  /* display: none; */
+
+  /* 맨앞에 잘보임 */
+  z-index: 5;
+  position: fixed;
+
+  /* One-way UI 애니메이션 만드는법 */
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s;
+}
+
+.white-bg {
+  background: white;
+  border-radius: 5px;
+  padding: 30px;
+}
+.show-modal {
+  /* One-way UI 애니메이션 만드는법 */
+  visibility: visible;
+  opacity: 1;
+}
+.dark {
+  background: black;
+  color: white;
+}
+
+.slide-container {
+  width: 300vw;
+  transition: all 1s;
+}
+.slide-box {
+  width: 100vw;
+  float: left;
+}
+.slide-box img {
+  width: 100%;
+}
+
+/* 일단 상단메뉴는 상단고정하고 
+로고 폰트사이즈를 키운 채로 시작합시다.
+그리고 스크롤바를 100px 정도 내리면 폰트사이즈를 줄여봅시다.
+그럼 스크롤바를 얼마나 내렸는지 알 수 있어야겠군요  */
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+}
+.navbar-brand {
+  font-size: 30px;
+  transition: all 1s;
+}
