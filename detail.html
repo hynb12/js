@@ -81,11 +81,14 @@
       }
     </style>
 
-    <form class="container my-5 form-group">
+    <!-- Select 인풋 다루기 -->
+    <form class="container my-5 form-group" id="selBox">
       <p>상품선택</p>
       <select class="form-select mt-2" id="choice">
+        <option>선택</option>
         <option>모자</option>
         <option>셔츠</option>
+        <option>바지</option>
       </select>
       <select class="form-select mt-2 form-hide">
         <option>S</option>
@@ -98,18 +101,71 @@
         <option>105</option>
       </select>
     </form>
+
+    <div id="test">
+      <h4>반가워</h4>
+    </div>
     <script>
+      // 자바스크립트로 html 생성하는 법 1
+      var a = document.createElement("p");
+      a.innerHTML = "안녕1";
+      document.querySelector("#test").append(a);
+
+      // 자바스크립트로 html 생성하는 법 2
+      var 템플릿 = '<p class="ds">안녕2</p>';
+      document.querySelector("#test").insertAdjacentHTML("beforeend", 템플릿);
+      $("#test").append(템플릿);
+
+      var pants = [28, 30, 32, 34, 36, 38, 40];
+
+      var selectorPantsSize = "";
+      var optionsPantsSize = "";
+
+      // for (let i = 0; i < pants.length; i++) {
+      //   optionsPantsSize =
+      //     optionsPantsSize + "<option>" + pants[i] + "</option>";
+      // }
+      pants.forEach(function (a, i) {
+        console.log(a, i);
+        optionsPantsSize = optionsPantsSize + "<option>" + a + "</option>";
+      });
+
+      var obj = { name: "kim", age: 20 };
+
+      for (var key in obj) {
+        console.log(key, ":", obj[key]);
+      }
+
+      selectorPantsSize =
+        '<select class="form-select mt-2 form-hide">' +
+        optionsPantsSize +
+        "</select>";
+
+      $("#selBox").append(selectorPantsSize);
+
       $(".form-select")
         .eq(0)
-        .on("click", function (e) {
+        //  .on("click", function (e) {
+        .on("input", function (e) {
+          console.log($("#selBox"));
+          var value = document.querySelectorAll(".form-select")[0].value;
           // var value = this.value;
-          var value = e.currentTarget.value;
-          if (value == "모자") {
-            $(".form-select").eq(2).addClass("form-hide");
+          // var value = e.currentTarget.value;
+          if (value == "선택") {
+            $(".form-select").addClass("form-hide");
+            $(".form-select").eq(0).removeClass("form-hide");
+          } else if (value == "모자") {
+            $(".form-select").addClass("form-hide");
+            $(".form-select").eq(0).removeClass("form-hide");
             $(".form-select").eq(1).removeClass("form-hide");
           } else if (value == "셔츠") {
-            $(".form-select").eq(1).addClass("form-hide");
+            $(".form-select").addClass("form-hide");
+            $(".form-select").eq(0).removeClass("form-hide");
             $(".form-select").eq(2).removeClass("form-hide");
+          } else if (value == "바지") {
+            $(".form-select").addClass("form-hide");
+            $(".form-select").eq(0).removeClass("form-hide");
+            $(".form-select").eq(3).removeClass("form-hide");
           }
         });
     </script>
@@ -127,6 +183,7 @@
       document.querySelector(".car-price").innerHTML = car2["price"][0];
     </script>
 
+    <!-- tab 만들기 -->
     <div class="container mt-5">
       <ul class="list">
         <li class="tab-button" data-id="0">Products</li>
