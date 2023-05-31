@@ -27,63 +27,7 @@
   </head>
 
   <body>
-    <div class="card-group container">
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/600" />
-        <div class="card-body">
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-          <button class="btn btn-danger">주문하기</button>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      var products = [
-        { id: 0, price: 70000, title: "Blossom Dress" },
-        { id: 1, price: 50000, title: "Springfield Shirt" },
-        { id: 2, price: 60000, title: "Black Monastery" },
-      ];
-      for (let i = 0; i < products.length; i++) {
-        $(".card-body h5").eq(i).html(products[i].title);
-        $(".card-body p")
-          .eq(i)
-          .html("가격 : " + products[i].price);
-      }
-    </script>
-
     <div id="test">반가워</div>
-
-    <div class="container">
-      <div class="row">
-        <!-- <div class="col-sm-4">
-          <img src="https://via.placeholder.com/600" class="w-100" />
-          <h5>Card title</h5>
-          <p>가격 : 70000</p>
-        </div> -->
-      </div>
-    </div>
-
-    <div class="container">
-      <button class="btn btn-danger" id="more">더보기</button>
-    </div>
-
     <script>
       // 자바스크립트로 html 생성하는 법
       var a = document.createElement("p");
@@ -94,27 +38,125 @@
       document.querySelector("#test").insertAdjacentHTML("beforeend", 템플릿);
 
       $("#test").append(템플릿);
+    </script>
 
+    <script>
+      // Ajax 1 : 개념정리
+      $.get("https://codingapple1.github.io/hello.txt").done(function (res) {
+        console.log("res", res);
+      });
+
+      $.get("https://codingapple1.github.io/price.json")
+        .done(function (data) {
+          console.log("data", data);
+        })
+        .fail(function () {
+          console.log("실패함");
+        });
+
+      fetch("https://codingapple1.github.io/price.json")
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("data", data);
+        })
+        .catch(function () {
+          console.log("실패함2");
+        });
+    </script>
+
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-sm-4">
+      <img src="https://via.placeholder.com/600" class="w-100" />
+      <h5>Card title</h5>
+      <p>가격 : 70000</p>
+    </div> -->
+      </div>
+    </div>
+    <br />
+    <div class="container">
+      <button class="btn btn-danger" id="more">더보기</button>
+    </div>
+
+    <script>
+      // Ajax 2 : 상품 더보기 버튼 만들기
       var products = [
         { id: 0, price: 70000, title: "Blossom Dress" },
-        { id: 1, price: 60000, title: "Springfield Shirt" },
-        { id: 2, price: 50000, title: "Black Monastery" },
+        { id: 1, price: 50000, title: "Springfield Shirt" },
+        { id: 2, price: 60000, title: "Black Monastery" },
       ];
 
       function listView(obj) {
         obj.forEach((a) => {
           var card = `<div class="col-sm-4">
-          <img src="https://via.placeholder.com/600" class="w-100" />
-          <h5>${a.title}</h5>
-          <p>가격 : ${a.price}</p>
-        </div>`;
+                <img src="https://via.placeholder.com/600" class="w-100" />
+                <h5>${a.title}</h5>
+                <p>가격 : ${a.price}</p>
+                <button class="buy">구매</button>
+              </div>`;
           $(".row").append(card);
         });
       }
 
-      // 처음
-      $(document).ready(listView(products));
-      //   $(window).on("load", listView(products));
+      listView(products);
+
+      // 장바구니 기능과 localStorage
+      // Local Storage는 브라우저 재접속해도 영구적으로 남아있는데(사이트 재접속해도 유지)
+      // Session Storage는 브라우저 끄면 날아갑니다. (사이트나가면 자동삭제)
+      // array/object -> JSON 변환하고 싶으면 JSON.stringify()
+      // JSON -> array/object 변환하고 싶으면 JSON.parse()
+      var arr = [1, 2, 3];
+      var newArr = JSON.stringify(arr);
+      localStorage.setItem("num", newArr);
+      var 꺼낸거 = localStorage.getItem("num");
+      console.log("꺼낸거:" + JSON.parse(꺼낸거)[0]);
+
+      // 장바구니 기능과 localStorage 숙제
+      $(".buy").on("click", function (e) {
+        // 중복방지
+        var title = $(e.target).siblings("h5").text();
+        var lsCart1 = JSON.parse(localStorage.getItem("cart1"));
+        var arr1 = [];
+
+        if (lsCart1) {
+          arr1 = lsCart1;
+          // arr = lsCart.filter(function (a) {
+          //   return a != title;
+          // });
+          if (!lsCart1.includes(title)) {
+            arr1.push(title);
+          }
+        } else {
+          arr1.push(title);
+        }
+
+        console.log(arr1);
+        var newArr1 = JSON.stringify(arr1);
+        localStorage.setItem("cart1", newArr1);
+
+        // 수량표시
+        var lsCart2 = JSON.parse(localStorage.getItem("cart2"));
+        var arr2 = [];
+        var info = { title: title, cnt: 1 };
+        if (lsCart2) {
+          var chk = 0;
+          for (let i = 0; i < lsCart2.length; i++) {
+            if (lsCart2[i]["title"] == info.title) {
+              chk = 1;
+              lsCart2[i]["cnt"] = lsCart2[i]["cnt"] + 1;
+            }
+          }
+          arr2 = lsCart2;
+          if (chk == 0) {
+            arr2.push(info);
+          }
+        } else {
+          arr2.push(info);
+        }
+        console.log("arr2", arr2);
+        var newArr2 = JSON.stringify(arr2);
+        localStorage.setItem("cart2", newArr2);
+      });
 
       // 더보기
       var clickCnt = 0;
@@ -128,6 +170,67 @@
         if (clickCnt >= 2) {
           $("#more").hide();
         }
+      });
+
+      // 처음
+      // $(document).ready(listView(products));
+      // $(window).on("load", listView(products));
+    </script>
+
+    <br />
+    <div class="container">
+      <button class="btn btn-danger" id="sortPrice">가격정렬</button>
+    </div>
+    <br />
+    <div class="container">
+      <button class="btn btn-danger" id="sort다나가">다나가정렬</button>
+    </div>
+    <br />
+    <div class="container">
+      <button class="btn btn-danger" id="filter6">6만원</button>
+    </div>
+    <script>
+      // array에 자주 쓰는 sort, map, filter 함수
+      // sort() 원본변형O
+      // filter() 원본변형X
+      var 어레이 = [7, 3, 5, 2, 40];
+      어레이.sort(function (a, b) {
+        return a - b;
+      });
+      console.log("어레이", 어레이);
+      var 새어레이 = 어레이.filter(function (a) {
+        return a < 4;
+      });
+      console.log("새어레이", 새어레이);
+
+      var 새어레이2 = 어레이.map(function (a) {
+        return a * 4;
+      });
+      console.log("새어레이2", 새어레이2);
+
+      $("#sortPrice").on("click", function () {
+        products.sort(function (a, b) {
+          return a.price - b.price;
+        });
+        console.log("products", products);
+        $(".row").html("");
+        listView(products);
+      });
+      $("#sort다나가").on("click", function () {
+        products.sort(function (a, b) {
+          return a.title > b.title ? -1 : a.title > b.title ? 1 : 0;
+        });
+        console.log("products", products);
+        $(".row").html("");
+        listView(products);
+      });
+      $("#filter6").on("click", function () {
+        var products6 = products.filter(function (a) {
+          return a.price <= 60000;
+        });
+        console.log("products6", products6);
+        $(".row").html("");
+        listView(products6);
       });
     </script>
   </body>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- jQuery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- 공부용 -->
+    <link rel="stylesheet" href="main.css" />
+    <title>Hello, world!</title>
+  </head>
+
+  <body>
+    <div id="quiz">
+      <h4>물에 빠지면 누구먼저 구할 것임?</h4>
+      <button>와이프</button>
+      <button>부모님</button>
+      <button>키우던 개</button>
+    </div>
+
+    <script>
+      // 간혹 쓰는 Switch 문법
+      $("#quiz").click(function (e) {
+        console.log(e.target.innerHTML);
+        switch (e.target.innerHTML) {
+          case "와이프":
+            alert("와이프");
+            break;
+          case "부모님":
+            alert("부모님");
+            break;
+          case "키우던 개":
+            alert("키우던 개");
+            break;
+          default:
+            alert("nothing!!!!!!!!!");
+        }
+      });
+    </script>
+  </body>
+</html>
