@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    /* 스크롤 위치에 따라 변하는 애니메이션 : Apple Music UI 만들기 */
+
+    .card-backgroud {
+      height: 3000px;
+      margin-top: 800px;
+      margin-bottom: 1600px;
+    }
+
+    .card-box img {
+      display: block;
+      margin: auto;
+      max-width: 80%;
+    }
+
+    .card-box {
+      position: sticky;
+      top: 400px;
+      margin-top: 200px;
+      transition: all 0.2s;
+    }
+  </style>
+  <head>
+    <!-- jQuery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- 공부용 -->
+    <link rel="stylesheet" href="main.css" />
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="card-backgroud">
+      <div class="card-box">
+        <img src="img/card1.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card2.png" />
+      </div>
+      <div class="card-box">
+        <img src="img/card3.png" />
+      </div>
+    </div>
+
+    <script>
+      $(window).scroll(function () {
+        console.log($(window).scrollTop());
+        $(".card-box")
+          .eq(0)
+          .css("opacity", (1150 - $(window).scrollTop()) / 250);
+        if ($(window).scrollTop() >= 900) {
+          var sc = -($(window).scrollTop() - 2150) / 1250;
+          $(".card-box").eq(0).css("transform", `scale(${sc})`);
+        }
+        $(".card-box")
+          .eq(1)
+          .css("opacity", (1850 - $(window).scrollTop()) / 250);
+        if ($(window).scrollTop() >= 1600) {
+          var sc = -($(window).scrollTop() - 2850) / 1250;
+          $(".card-box").eq(1).css("transform", `scale(${sc})`);
+        }
+      });
+    </script>
+  </body>
+</html>
